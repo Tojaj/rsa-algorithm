@@ -10,3 +10,4 @@ Build from your checkout dir:
 
     make
 
+Want more information? Try [wiki](https://github.com/Tojaj/rsa-algorithm/wiki)
