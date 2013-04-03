@@ -12,34 +12,19 @@ keygen(int mod_bits, gmp_randstate_t randstate)
     mpz_t p, q, p_, q_, n, phi, d, e, gcd;
     mpz_inits(p, q, p_, q_, n, phi, d, e, gcd, NULL);
 
+    mpz_set_ui(e, 3L);
 
-    gen_prime(p, mod_bits-(mod_bits/2), PRIME_DEFAULT_RELIABILITY, randstate);
+    do {
+        gen_prime(p, mod_bits-(mod_bits/2), PRIME_DEFAULT_RELIABILITY, randstate);
+    } while (mpz_fdiv_r(gcd, p, e), mpz_cmp_ui(gcd, 1) == 0);
+
     do {
         gen_prime(q, mod_bits/2, PRIME_DEFAULT_RELIABILITY, randstate);
-    } while (mpz_cmp(q, p) == 0);  // Do not want p == q
+    } while (mpz_cmp(q, p) == 0 || (mpz_fdiv_r(gcd, q, e), mpz_cmp_ui(gcd, 1) == 0));
 
     mpz_sub_ui(p_, p, 1L);
     mpz_sub_ui(q_, q, 1L);
     mpz_mul(phi, p_, q_);
-
-    // Select an appripriate e (at first we have some candidates)
-    mpz_set_ui(e, 3L);
-    if (binary_gcd(gcd, phi, e), mpz_cmp_ui(gcd, 1) == 0)
-        goto gotcha_e;
-    mpz_set_ui(e, 17L);
-    if (binary_gcd(gcd, phi, e), mpz_cmp_ui(gcd, 1) == 0)
-        goto gotcha_e;
-    mpz_set_ui(e, 65537L);
-    if (binary_gcd(gcd, phi, e), mpz_cmp_ui(gcd, 1) == 0)
-        goto gotcha_e;
-
-    // If no succes try gen random
-    while ((binary_gcd(gcd, phi, e), mpz_cmp_ui(gcd, 1) != 0)
-            || mpz_cmp(e, phi) >= 0
-            || mpz_cmp_ui(e , 1) == 0)
-        gen_prime(e, mod_bits/2, PRIME_DEFAULT_RELIABILITY, randstate);
-
-gotcha_e:
 
     mpz_mul(n, p, q);
     modinv(d, e, phi);
