@@ -61,8 +61,10 @@ main(int argc, char *argv[])
         // Key generation
         state = STATE_KEYGEN;
         mod_bits = strtol(argv[2], NULL, 10);
-        if (mod_bits < 16) state = STATE_BADARG;
-        fprintf(stderr, "Too small key length\n");
+        if (mod_bits < 16) {
+            state = STATE_BADARG;
+            fprintf(stderr, "Too small key length\n");
+        }
     } else if (argc == 5 && !strcmp(argv[1], "-e")) {
         // Encryption
         state = STATE_ENCRYPTION;
