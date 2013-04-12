@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "decrypt.h"
+#include "powm.h"
 
 int
 decrypt(const char *d_str, const char *n_str, const char *c_str)
@@ -19,7 +20,7 @@ decrypt(const char *d_str, const char *n_str, const char *c_str)
         return 1;
     }
 
-    mpz_powm_sec(m, c, d, n);
+    powm(m, c, d, n);
     gmp_printf("0x%Zx\n", m);
     //gmp_printf("%Zd\n", m);
     mpz_clears(d, n, c, m, NULL);

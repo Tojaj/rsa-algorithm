@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "encrypt.h"
+#include "powm.h"
 
 int
 encrypt(const char *e_str, const char *n_str, const char *m_str)
@@ -19,7 +20,7 @@ encrypt(const char *e_str, const char *n_str, const char *m_str)
         return 1;
     }
 
-    mpz_powm_sec(c, m, e, n);
+    powm(c, m, e, n);
     gmp_printf("0x%Zx\n", c);
     //gmp_printf("%Zd\n", c);
     mpz_clears(e, n, m, c, NULL);

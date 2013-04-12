@@ -45,16 +45,16 @@ main(int argc, char *argv[])
     long mod_bits;
 
     /////////
-    /*
-     *mpz_t a, b, r;
-     *mpz_inits(a, b, r, NULL);
-     *mpz_set_ui(a, 16);
-     *mpz_set_ui(b, 4);
-     *binary_gcd(r, a, b);
-     *gmp_printf("%Zd\n", r);
-     *mpz_clears(a, b, r);
-     *return 0;
-     */
+    /*mpz_t a, b, c, r;*/
+    /*mpz_inits(a, b, c, r, NULL);*/
+    /*mpz_set_ui(a, 4);*/
+    /*mpz_set_ui(b, 13);*/
+    /*mpz_set_ui(c, 497);*/
+    /*//binary_gcd(r, a, b);*/
+    /*powm(r, a, b, c);*/
+    /*gmp_printf("%Zd\n", r);*/
+    /*mpz_clears(a, b, c, r, NULL);*/
+    /*return 0;*/
     /////////
 
     if (argc == 3 && !strcmp(argv[1], "-g")) {
@@ -99,6 +99,9 @@ main(int argc, char *argv[])
             break;
         case STATE_DECRYPTION:
             rc = decrypt(argv[2], argv[3], argv[4]);
+            break;
+        case STATE_CRACKING:
+        case STATE_BADARG:
             break;
     }
 

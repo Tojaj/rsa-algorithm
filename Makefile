@@ -1,6 +1,6 @@
 CC=gcc
 
-CFLAGS= -Wall -Wextra -g -O2 -std=c99
+CFLAGS= -Wall -Wextra -g -std=c99 -O3
 LINKFLAGS= -lgmp
 FILES = src/main.c \
 	src/prime.c \
