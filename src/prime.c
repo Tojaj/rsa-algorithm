@@ -1,5 +1,6 @@
 #include <assert.h>
 
+#include "powm.h"
 #include "prime.h"
 
 int
@@ -34,12 +35,12 @@ is_probably_prime(mpz_t n, int reliability, gmp_randstate_t randstate)
         do {  // Get random number in <2; num-2>
             mpz_urandomm(a, randstate, n_);
         } while (mpz_cmp_si(a, 2) == -1);
-        mpz_powm(x, a, d, n);
+        powm(x, a, d, n);
         if (mpz_cmp_ui(x, 1L) == 0 || mpz_cmp(x, n_) == 0)
             continue;  // This number is probably a prime
 
         for (long long r = 0; r < s; r++) {
-            mpz_powm_ui(x, x, 2L, n);
+            powm_ui(x, x, 2L, n);
             if (mpz_cmp_ui(x, 1L) == 0) {
                 // Not a prime
                 ret = 0;
