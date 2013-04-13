@@ -5,10 +5,11 @@
 #include <gmp.h>
 
 /** Try to factorize factors of n.
- * @param e         Public exponent - Not used
- * @param n         Public modulus
- * @param c         Ciphertext - Not used
+ * @param e_str         Public exponent - Not used
+ * @param n_str         Public modulus
+ * @param c_str         Ciphertext - Not used
+ * @return              0 - OK, 1 - Error
  */
-void factorization(mpz_t e, mpz_t n, mpz_t c);
+int factorization(const char *e_str, const char *n_str, const char *c_str);
 
 #endif

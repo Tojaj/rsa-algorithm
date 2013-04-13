@@ -34,8 +34,8 @@ keygen(int mod_bits, gmp_randstate_t randstate)
     /*gmp_printf("e:   0x%Zx (%Zd)\n", e, e);*/
     /*gmp_printf("phi: 0x%Zx (%Zd)\n", phi, phi);*/
     /*gmp_printf("gcd: 0x%Zx (%Zd)\n", gcd, gcd);*/
-    //gmp_printf("n:   %Zx\n", n);
-    //gmp_printf("d:   %Zx\n", d);
+    /*gmp_printf("n:   %Zx\n", n);*/
+    /*gmp_printf("d:   %Zx\n", d);*/
 
     gmp_printf("0x%Zx 0x%Zx 0x%Zx 0x%Zx 0x%Zx\n", p, q, n, e, d);
     //gmp_printf("p: %Zd q: %Zd n: %Zd e: %Zd d: %Zd\n", p, q, n, e, d);

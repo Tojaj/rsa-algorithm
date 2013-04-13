@@ -6,6 +6,7 @@
 #include "keygen.h"
 #include "encrypt.h"
 #include "decrypt.h"
+#include "factorization.h"
 
 typedef enum {
     STATE_BADARG,
@@ -89,22 +90,29 @@ main(int argc, char *argv[])
     gmp_randseed_ui(randstate, time(NULL));
 
     int rc = EXIT_SUCCESS;
+    mpz_t res;
+    mpz_init(res);
 
     switch (state) {
         case STATE_KEYGEN:
             rc = keygen(mod_bits, randstate);
             break;
         case STATE_ENCRYPTION:
-            rc = encrypt(argv[2], argv[3], argv[4]);
+            rc = encrypt(res, argv[2], argv[3], argv[4]);
+            gmp_printf("0x%Zx\n", res);
             break;
         case STATE_DECRYPTION:
-            rc = decrypt(argv[2], argv[3], argv[4]);
+            rc = decrypt(res, argv[2], argv[3], argv[4]);
+            gmp_printf("0x%Zx\n", res);
             break;
         case STATE_CRACKING:
+            rc = factorization(argv[2], argv[3], argv[4]);
+            break;
         case STATE_BADARG:
             break;
     }
 
+    mpz_clear(res);
     gmp_randclear(randstate);
     return rc;
 }

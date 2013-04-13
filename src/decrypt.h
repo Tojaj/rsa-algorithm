@@ -5,10 +5,13 @@
 #include <gmp.h>
 
 /** Decipher cipher text. Cipher text must be a number.
+ * @param m             Message.
  * @param d_str         Private exponent.
  * @param n_str         Public modulus.
  * @param c_str         Cipher text.
+ * @return              0 - OK, 1 - Error
  */
-int decrypt(const char *d_str, const char *n_str, const char *c_str);
+int decrypt(mpz_t m, const char *d_str, const char *n_str, const char *c_str);
+int decrypt_mpz_d(mpz_t m, mpz_t d, const char *n_str, const char *c_str);
 
 #endif
