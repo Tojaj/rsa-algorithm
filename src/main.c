@@ -94,9 +94,14 @@ main(int argc, char *argv[])
     mpz_init(res);
 
     switch (state) {
-        case STATE_KEYGEN:
-            rc = keygen(mod_bits, randstate);
+        case STATE_KEYGEN: {
+            mpz_t p, q, n, e;  // For d use res var
+            mpz_inits(p, q, n, e, NULL);
+            rc = keygen(p, q, n, e, res, mod_bits, randstate);
+            gmp_printf("0x%Zx 0x%Zx 0x%Zx 0x%Zx 0x%Zx\n", p, q, n, e, res);
+            mpz_clears(p, q, n, e, NULL);
             break;
+        }
         case STATE_ENCRYPTION:
             rc = encrypt(res, argv[2], argv[3], argv[4]);
             gmp_printf("0x%Zx\n", res);
