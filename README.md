@@ -5,6 +5,9 @@
 Build requires:
 * gcc - The GNU Compiler Collection (http://gcc.gnu.org/)
 * gmp - The GNU MP Bignum Library (http://gmplib.org)
+* zlib - The Compression Library (Needed by msieve) (http://www.zlib.net/)
+
+Note: Required **Msieve-1.51** library is bundled into the project.
 
 Build from your checkout dir:
 
