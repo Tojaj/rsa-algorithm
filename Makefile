@@ -1,8 +1,7 @@
 CC=gcc
 
 CFLAGS= -Wall -Wextra -g -std=c99 -O3 -I./msieve-1.51/include/
-LINKFLAGS= -lgmp -L./msieve-1.51/ -lmsieve -lm -lpthread \
-	   `pkg-config zlib --libs` -ldl
+LINKFLAGS= -lgmp -L./msieve-1.51/ -lmsieve -lm -lpthread -ldl
 FILES = src/main.c \
 	src/prime.c \
 	src/keygen.c \
@@ -18,10 +17,10 @@ TARBALL=xmlcoc06.tar.gz
 all: msieve kry
 
 msieve:
-	cd msieve-1.51/ && make all && cd ..
+	cd msieve-1.51/ && make all NO_ZLIB=1 && cd ..
 
 kry:
-	$(CC) $(CFLAGS) $(FILES)  $(LINKFLAGS) -o kry
+	$(CC) $(CFLAGS) $(FILES) $(LINKFLAGS) -o kry
 
 clean:
 	rm -f kry
