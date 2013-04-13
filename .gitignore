@@ -1,2 +1,8 @@
 tags
 kry
+*.o
+*.po
+*.no
+*.qo
+libmsieve.a
+msieve-1.51/msieve
