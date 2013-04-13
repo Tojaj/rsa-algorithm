@@ -13,4 +13,12 @@ Build from your checkout dir:
 
     make
 
+Relase tarball:
+
+    make release
+
+Clean up the mess:
+
+    make clean
+
 Want more information? Try [wiki](https://github.com/Tojaj/rsa-algorithm/wiki)
