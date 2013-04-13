@@ -17,7 +17,10 @@ keygen(mpz_t p, mpz_t q, mpz_t n, mpz_t e, mpz_t d,
        int mod_bits, gmp_randstate_t randstate)
 {
     mpz_t p_, q_, phi, r;
-    mpz_inits(p_, q_, phi, r, NULL);
+    mpz_init(p_);
+    mpz_init(q_);
+    mpz_init(phi);
+    mpz_init(r);
 
     mpz_set_ui(e, 3L);
 
@@ -36,6 +39,9 @@ keygen(mpz_t p, mpz_t q, mpz_t n, mpz_t e, mpz_t d,
     mpz_mul(n, p, q);
     modinv(d, e, phi);
 
-    mpz_clears(p_, q_, phi, r, NULL);
+    mpz_clear(p_);
+    mpz_clear(q_);
+    mpz_clear(phi);
+    mpz_clear(r);
     return 0;
 }

@@ -84,10 +84,16 @@ main(int argc, char *argv[])
     switch (state) {
         case STATE_KEYGEN: {
             mpz_t p, q, n, e;  // For d use res var
-            mpz_inits(p, q, n, e, NULL);
+            mpz_init(p);
+            mpz_init(q);
+            mpz_init(n);
+            mpz_init(e);
             rc = keygen(p, q, n, e, res, mod_bits, randstate);
             gmp_printf("0x%Zx 0x%Zx 0x%Zx 0x%Zx 0x%Zx\n", p, q, n, e, res);
-            mpz_clears(p, q, n, e, NULL);
+            mpz_clear(p);
+            mpz_clear(q);
+            mpz_clear(n);
+            mpz_clear(e);
             break;
         }
 
@@ -106,13 +112,16 @@ main(int argc, char *argv[])
         case STATE_CRACKING: {
             // Argv: [2]=e; [3]=n; [4]=c;
             mpz_t p, q, p_, q_, e, d;
-            mpz_inits(p, q, p_, q_, e, d, NULL);
+            mpz_init(p);
+            mpz_init(q);
+            mpz_init(p_);
+            mpz_init(q_);
+            mpz_init(e);
+            mpz_init(d);
 
             rc = factorization(p, q, argv[3]);
-            if (rc != 0) {
-                mpz_clears(p, q, NULL);
-                break;
-            }
+            if (rc != 0)
+                goto cracking_cleanup;
 
             // phi = (p-1) * (q-1)
             mpz_sub_ui(p_, p, 1L);
@@ -125,7 +134,13 @@ main(int argc, char *argv[])
 
             rc = decrypt_mpz_d(res, d, argv[3], argv[4]);
             gmp_printf("0x%Zx 0x%Zx 0x%Zx\n", p, q, res);
-            mpz_clears(p, q, p_, q_, e, d, NULL);
+        cracking_cleanup:
+            mpz_clear(p);
+            mpz_clear(q);
+            mpz_clear(p_);
+            mpz_clear(q_);
+            mpz_clear(e);
+            mpz_clear(d);
             break;
         }
 

@@ -18,9 +18,8 @@ binary_gcd(mpz_t r, mpz_t u_, mpz_t v_)
     }
 
     mpz_t u, v;
-    mpz_inits(u, v, NULL);
-    mpz_set(u, u_);
-    mpz_set(v, v_);
+    mpz_init_set(u, u_);
+    mpz_init_set(v, v_);
 
     for (shift = 0; (!mpz_tstbit(u, 0) && !mpz_tstbit(v, 0)); ++shift) {
         mpz_fdiv_q_2exp(u, u, 1);
@@ -41,5 +40,6 @@ binary_gcd(mpz_t r, mpz_t u_, mpz_t v_)
     } while (mpz_sgn(v) > 0);
 
     mpz_mul_2exp(r, u, shift);
-    mpz_clears(u, v, NULL);
+    mpz_clear(u);
+    mpz_clear(v);
 }

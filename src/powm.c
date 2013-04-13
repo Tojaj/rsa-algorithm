@@ -26,7 +26,9 @@ powm(mpz_t res_, mpz_t base_, mpz_t exp_, mpz_t mod)
     }
 
     mpz_set(res_, res);
-    mpz_clears(res, base, exp, NULL);
+    mpz_clear(res);
+    mpz_clear(base);
+    mpz_clear(exp);
 }
 
 void

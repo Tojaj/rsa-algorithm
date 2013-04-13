@@ -10,18 +10,19 @@ decrypt_mpz_d(mpz_t m, mpz_t d, const char *n_str, const char *c_str)
 {
     int rc = 0;
     mpz_t n, c;
-    mpz_inits(n, c, NULL);
 
-    rc += mpz_set_str(n, n_str, 0);
-    rc += mpz_set_str(c, c_str, 0);
+    rc += mpz_init_set_str(n, n_str, 0);
+    rc += mpz_init_set_str(c, c_str, 0);
     if (rc != 0) {
         fprintf(stderr, "Invalid number argument\n");
-        mpz_clears(n, c, NULL);
-        return 1;
+        rc = 1;
+        goto cleanup;
     }
 
     powm(m, c, d, n);
-    mpz_clears(n, c, NULL);
+cleanup:
+    mpz_clear(n);
+    mpz_clear(c);
     return rc;
 }
 

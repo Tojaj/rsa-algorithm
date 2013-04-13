@@ -19,7 +19,10 @@ is_probably_prime(mpz_t n, int reliability, gmp_randstate_t randstate)
         return -1;  // Do not bother with too small or negative numbers!
 
 
-    mpz_inits(n_, d, a, x, NULL);       // n_ = d = a = x = 0
+    mpz_init(n_);
+    mpz_init(d);
+    mpz_init(a);
+    mpz_init(x);
     mpz_sub_ui(n_, n, 1L);              // n_ = n - 1
 
     // First try Fermat test
@@ -70,7 +73,10 @@ is_probably_prime(mpz_t n, int reliability, gmp_randstate_t randstate)
     }
 
 final:
-    mpz_clears(n_, d, a, x, NULL);
+    mpz_clear(n_);
+    mpz_clear(d);
+    mpz_clear(a);
+    mpz_clear(x);
     return ret;
 }
 

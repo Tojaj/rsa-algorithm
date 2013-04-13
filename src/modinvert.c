@@ -8,20 +8,16 @@ modinv(mpz_t r, mpz_t x, mpz_t m)
     int iter = 1;
     mpz_t x1, x3, m1, m3, t1, t3, q;
 
-    mpz_inits(x1, x3, m1, m3, t1, t3, q, NULL);
-    mpz_set_ui(x1, 1L);
-    mpz_set(x3, x);
-    mpz_set(m3, m);
+    mpz_init_set_ui(x1, 1L);
+    mpz_init_set(x3, x);
+    mpz_init(m1);
+    mpz_init_set(m3, m);
+    mpz_init(t1);
+    mpz_init(t3);
+    mpz_init(q);
 
     // Loop while m3 != 0
     int kk = 0;
-
-    /*
-     *gmp_printf("x1:   %Zd\n", x1);
-     *gmp_printf("x3:   %Zd\n", x3);
-     *gmp_printf("m1:   %Zd\n", m1);
-     *gmp_printf("m3:   %Zd\n", m3);
-     */
 
     while (mpz_sgn(m3) != 0) {
         // Divide and "Subtract"
@@ -51,5 +47,11 @@ modinv(mpz_t r, mpz_t x, mpz_t m)
         mpz_set(r, x1);
 
 end:
-    mpz_clears(x1 ,x3, m1, m3, t1, t3, q, NULL);
+    mpz_clear(x1);
+    mpz_clear(x3);
+    mpz_clear(m1);
+    mpz_clear(m3);
+    mpz_clear(t1);
+    mpz_clear(t3);
+    mpz_clear(q);
 }
