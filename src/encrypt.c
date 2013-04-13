@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include <assert.h>
 
 #include "encrypt.h"
 #include "powm.h"
+
+// RSA encrypt: c = m^e mod n (Note: 1 < m < n)
 
 int
 encrypt(mpz_t c, const char *e_str, const char *n_str, const char *m_str)
@@ -21,8 +22,6 @@ encrypt(mpz_t c, const char *e_str, const char *n_str, const char *m_str)
     }
 
     powm(c, m, e, n);
-    //gmp_printf("0x%Zx\n", c);
-    //gmp_printf("%Zd\n", c);
     mpz_clears(e, n, m, NULL);
     return rc;
 }

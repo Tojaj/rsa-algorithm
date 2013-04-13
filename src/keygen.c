@@ -1,10 +1,16 @@
-#include <assert.h>
+#include <stdio.h>
 
 #include "keygen.h"
-
 #include "prime.h"
-#include "gcd.h"
 #include "modinvert.h"
+
+// RSA key gen algorithm:
+// ++++++++++++++++++++++
+// p, q - Two distinct primes
+// n = p * q
+// phi = (p-1) * (q-1)
+// e < n such that gcd(e, phi) = 1
+// d = e^-1 mod phi
 
 int
 keygen(mpz_t p, mpz_t q, mpz_t n, mpz_t e, mpz_t d,
@@ -29,16 +35,6 @@ keygen(mpz_t p, mpz_t q, mpz_t n, mpz_t e, mpz_t d,
 
     mpz_mul(n, p, q);
     modinv(d, e, phi);
-
-    /*gmp_printf("p:   0x%Zx (%Zd)\n", p, p);*/
-    /*gmp_printf("q:   0x%Zx (%Zd)\n", q, q);*/
-    /*gmp_printf("e:   0x%Zx (%Zd)\n", e, e);*/
-    /*gmp_printf("phi: 0x%Zx (%Zd)\n", phi, phi);*/
-    /*gmp_printf("n:   %Zx\n", n);*/
-    /*gmp_printf("d:   %Zx\n", d);*/
-
-    //gmp_printf("0x%Zx 0x%Zx 0x%Zx 0x%Zx 0x%Zx\n", p, q, n, e, d);
-    //gmp_printf("p: %Zd q: %Zd n: %Zd e: %Zd d: %Zd\n", p, q, n, e, d);
 
     mpz_clears(p_, q_, phi, r, NULL);
     return 0;

@@ -1,13 +1,11 @@
 #define _XOPEN_SOURCE
 
-#include <assert.h>
+#include <stdio.h>
 #include <msieve.h>
 #include <gmp.h>
 #include <signal.h>
 
 #include "factorization.h"
-#include "modinvert.h"
-#include "decrypt.h"
 
 msieve_obj *g_curr_factorization = NULL;
 
@@ -21,7 +19,7 @@ void signal_handler(int sig) {
 }
 
 int
-factorization(const char *e_str, const char *n_str, const char *c_str)
+factorization(mpz_t p, mpz_t q, const char *n_str)
 {
     int rc;
 
@@ -98,25 +96,7 @@ factorization(const char *e_str, const char *n_str, const char *c_str)
         return 1;
     }
 
-    // Read the results (get the factors)
-    mpz_t d, p, q, p_, q_, e, phi, m;
-    mpz_inits(d, p_, q_, phi, m, NULL);
-    mpz_init_set_str(p, factor->number, 0);
-    mpz_init_set_str(q, factor->next->number, 0);
-    mpz_init_set_str(e, e_str, 0);
-
-    // phi = (p-1) * (q-1)
-    mpz_sub_ui(p_, p, 1L);
-    mpz_sub_ui(q_, q, 1L);
-    mpz_mul(phi, p_, q_);
-
-    // d = e^-1 mod phi
-    modinv(d, e, phi);
-
-    // Decrypt the message
-    rc = decrypt_mpz_d(m, d, n_str, c_str);
-
-    gmp_printf("0x%Zx 0x%Zx 0x%Zx\n", p, q, m);
-    mpz_clears(d, p, q, p_, q_, e, phi, m, NULL);
-    return rc;
+    mpz_set_str(p, factor->number, 0);
+    mpz_set_str(q, factor->next->number, 0);
+    return 0;
 }

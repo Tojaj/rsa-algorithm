@@ -1,15 +1,14 @@
 #ifndef KRY2_FACTORIZATION_H_
 #define KRY2_FACTORIZATION_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 /** Try to factorize factors of n.
- * @param e_str         Public exponent - Not used
+ * @param p             Output - First prime number.
+ * @param q             Output - Seond prime number.
  * @param n_str         Public modulus
- * @param c_str         Ciphertext - Not used
  * @return              0 - OK, 1 - Error
  */
-int factorization(const char *e_str, const char *n_str, const char *c_str);
+int factorization(mpz_t p, mpz_t q, const char *n_str);
 
 #endif

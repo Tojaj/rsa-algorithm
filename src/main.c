@@ -6,6 +6,7 @@
 #include "keygen.h"
 #include "encrypt.h"
 #include "decrypt.h"
+#include "modinvert.h"
 #include "factorization.h"
 
 typedef enum {
@@ -44,19 +45,6 @@ main(int argc, char *argv[])
 {
     KryState state = STATE_BADARG;
     long mod_bits;
-
-    /////////
-    /*mpz_t a, b, c, r;*/
-    /*mpz_inits(a, b, c, r, NULL);*/
-    /*mpz_set_ui(a, 4);*/
-    /*mpz_set_ui(b, 13);*/
-    /*mpz_set_ui(c, 497);*/
-    /*//binary_gcd(r, a, b);*/
-    /*powm(r, a, b, c);*/
-    /*gmp_printf("%Zd\n", r);*/
-    /*mpz_clears(a, b, c, r, NULL);*/
-    /*return 0;*/
-    /////////
 
     if (argc == 3 && !strcmp(argv[1], "-g")) {
         // Key generation
@@ -102,17 +90,45 @@ main(int argc, char *argv[])
             mpz_clears(p, q, n, e, NULL);
             break;
         }
+
         case STATE_ENCRYPTION:
+            // Argv: [2]=e; [3]=n; [4]=m;
             rc = encrypt(res, argv[2], argv[3], argv[4]);
             gmp_printf("0x%Zx\n", res);
             break;
+
         case STATE_DECRYPTION:
+            // Argv: [2]=d; [3]=n; [4]=c;
             rc = decrypt(res, argv[2], argv[3], argv[4]);
             gmp_printf("0x%Zx\n", res);
             break;
-        case STATE_CRACKING:
-            rc = factorization(argv[2], argv[3], argv[4]);
+
+        case STATE_CRACKING: {
+            // Argv: [2]=e; [3]=n; [4]=c;
+            mpz_t p, q, p_, q_, e, d;
+            mpz_inits(p, q, p_, q_, e, d, NULL);
+
+            rc = factorization(p, q, argv[3]);
+            if (rc != 0) {
+                mpz_clears(p, q, NULL);
+                break;
+            }
+
+            // phi = (p-1) * (q-1)
+            mpz_sub_ui(p_, p, 1L);
+            mpz_sub_ui(q_, q, 1L);
+            mpz_mul(res, p_, q_);
+
+            // d = e^1 mod phi
+            mpz_set_str(e, argv[2], 0);
+            modinv(d, e, res);
+
+            rc = decrypt_mpz_d(res, d, argv[3], argv[4]);
+            gmp_printf("0x%Zx 0x%Zx 0x%Zx\n", p, q, res);
+            mpz_clears(p, q, p_, q_, e, d, NULL);
             break;
+        }
+
         case STATE_BADARG:
             break;
     }

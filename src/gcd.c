@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <stdio.h>
 
 #include "gcd.h"
 
@@ -41,8 +41,5 @@ binary_gcd(mpz_t r, mpz_t u_, mpz_t v_)
     } while (mpz_sgn(v) > 0);
 
     mpz_mul_2exp(r, u, shift);
-
-    //gmp_printf("gcd: u: 0x%Zx (%Zd) v: 0x%Zx (%Zd) | 0x%Zx (%Zd)\n", u_, u_, v_, v_, r, r);
-
     mpz_clears(u, v, NULL);
 }

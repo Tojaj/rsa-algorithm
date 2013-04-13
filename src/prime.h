@@ -1,7 +1,6 @@
 #ifndef KRY2_PRIME_H_
 #define KRY2_PRIME_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 
@@ -16,7 +15,7 @@
 int is_probably_prime(mpz_t num, int reliability, gmp_randstate_t randstate);
 
 /** Gen a number which is probably a prime.
- * @param num           Result will be stored in this variable.
+ * @param num           Output - Likely a prime number.
  * @param len           Required bit length of the number.
  * @param reliability   Number of cycles for Miller-Rabin primality test.
  * @param randstate     Random number generator state.

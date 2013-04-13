@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include <assert.h>
 
 #include "decrypt.h"
 #include "powm.h"
+
+// RSA decrypt: m = c^d mod n
 
 int
 decrypt_mpz_d(mpz_t m, mpz_t d, const char *n_str, const char *c_str)
@@ -20,8 +21,6 @@ decrypt_mpz_d(mpz_t m, mpz_t d, const char *n_str, const char *c_str)
     }
 
     powm(m, c, d, n);
-    //gmp_printf("0x%Zx\n", m);
-    //gmp_printf("%Zd\n", m);
     mpz_clears(n, c, NULL);
     return rc;
 }

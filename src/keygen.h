@@ -1,15 +1,14 @@
 #ifndef KRY2_KEYGEN_H_
 #define KRY2_KEYGEN_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 /** RSA key generation.
- * @param p             First prime number.
- * @param q             Second prime number.
- * @param n             Public modulus.
- * @param e             Public exponent.
- * @param d             Private exponent.
+ * @param p             Output - First prime number.
+ * @param q             Output - Second prime number.
+ * @param n             Output - Public modulus.
+ * @param e             Output - Public exponent.
+ * @param d             Output - Private exponent.
  * @param mod_bits      Required length of public modulus in bits.
  * @param randstate     Random number generator state.
  * @return              0 - OK, 1 - Error

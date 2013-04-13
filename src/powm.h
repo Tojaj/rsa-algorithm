@@ -1,11 +1,10 @@
 #ifndef KRY2_POWM_H_
 #define KRY2_POWM_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 /** Modular exponentiation. (base^exponent = num mod modulus)
- * @param num       Result will be stored here.
+ * @param num       Output - Result.
  * @param base      Base.
  * @param exp       Exponent.
  * @param mod       Modulus.

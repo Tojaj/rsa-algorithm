@@ -1,11 +1,10 @@
 #ifndef KRY2_GCD_H_
 #define KRY2_GCD_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 /** Greatest Common Divisor. (Implementation of binary GCD algorithm)
- * @param r         Result will be stored here.
+ * @param r         Output - Greatest common divisor.
  * @param u         First number.
  * @param v         Second number.
  */

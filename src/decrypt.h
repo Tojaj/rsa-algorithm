@@ -1,11 +1,10 @@
 #ifndef KRY2_DECRYPT_H_
 #define KRY2_DECRYPT_H_
 
-#include <stdio.h>
 #include <gmp.h>
 
 /** Decipher cipher text. Cipher text must be a number.
- * @param m             Message.
+ * @param m             Output - Deciphered message.
  * @param d_str         Private exponent.
  * @param n_str         Public modulus.
  * @param c_str         Cipher text.

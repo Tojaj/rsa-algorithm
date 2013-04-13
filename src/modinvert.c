@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <stdio.h>
 
 #include "modinvert.h"
 

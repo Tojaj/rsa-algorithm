@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <stdio.h>
 
 #include "powm.h"
 #include "prime.h"
@@ -7,7 +7,6 @@ int
 is_probably_prime(mpz_t n, int reliability, gmp_randstate_t randstate)
 {
     // Miller-Rabin test
-//    assert(reliability > 0);
 
     int ret = 1;
     unsigned long s = 0;
