@@ -13,6 +13,8 @@ FILES = src/main.c \
 	src/powm.c \
 	src/factorization.c
 
+TARBALL=xmlcoc06.tar.gz
+
 all: msieve kry
 
 msieve:
@@ -25,3 +27,5 @@ clean:
 	rm -f kry
 	cd msieve-1.51/ && make clean
 
+release:
+	rm -f $(TARBALL) && git archive --format=tar HEAD | gzip > $(TARBALL)
