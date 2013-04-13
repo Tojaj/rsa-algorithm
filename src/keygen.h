@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <gmp.h>
 
+/** RSA key generation.
+ * @param mod_bits      Required length of public modulus in bits.
+ * @param randstate     Random number generator state.
+ * @return              0 if no error encountered.
+ */
 int keygen(int mod_bits, gmp_randstate_t randstate);
 
 #endif
