@@ -9,7 +9,8 @@ FILES = src/main.c \
 	src/modinvert.c \
 	src/encrypt.c \
 	src/decrypt.c \
-	src/powm.c
+	src/powm.c \
+	src/factorization.c
 
 main:
 	$(CC) $(CFLAGS) $(FILES)  $(LINKFLAGS) -o kry
